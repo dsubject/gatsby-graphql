@@ -37,6 +37,10 @@ export default ({ data }) => {
     )
 }
 
+// source plugins can live reload data -- new pandas-eating.md blogpost
+//  was automatically added to this table
+
+
 export const query = graphql `
 query MyFilesQuery {
     allFile {
@@ -51,3 +55,5 @@ query MyFilesQuery {
     }
 }
 `
+
+
