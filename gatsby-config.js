@@ -1,4 +1,5 @@
 module.exports = {
+    // tossing in a dynamic title
         siteMetadata: {
           title: `Blah Blah Fake Title`,
         },

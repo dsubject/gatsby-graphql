@@ -7,7 +7,8 @@ import { rhythm } from "../utils/typography";
 
 const linkStyle = css({ float: `right` });
 
-export default ({ children }) => (
+// passing in "data"
+export default ({ children, data }) =>
   <g.Div
     margin={`0 auto`}
     maxWidth={700}
@@ -20,7 +21,8 @@ export default ({ children }) => (
         display={`inline-block`}
         fontStyle={`normal`}
       >
-        Pandas Eating Lots
+      {/* replacing "Panda's eating" title with new title prop */}
+        {data.site.siteMetadata.title}
       </g.H3>
     </Link>
     <Link className={linkStyle} to={`/about/`}>
@@ -28,4 +30,13 @@ export default ({ children }) => (
     </Link>
     {children()}
   </g.Div>
-);
+
+export const query = graphql`
+  query LayoutQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
+`

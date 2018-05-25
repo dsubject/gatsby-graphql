@@ -1,5 +1,6 @@
 import React from "react";
 
+//passing the data in
 export default ({data}) => (
   <div>
     <h1>About {data.site.siteMetadata.title}</h1>
