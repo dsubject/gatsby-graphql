@@ -22,10 +22,34 @@
 
 // this function handles finding the parent File node along with
 //  creating the slug
-const { createFilePath } = require(`gatsby-source-filesystem`);
+/* const { createFilePath } = require(`gatsby-source-filesystem`);
 
 exports.onCreateNode = ({ node, getNode }) => {
   if (node.internal.type === `MarkdownRemark`) {
     console.log(createFilePath({ node, getNode, basePath: `pages` }))
   }
+}; */
+
+
+// now both creating slugs with plugin and adding the 
+//  new slugs directly onto the MarkdownRemark nodes... once the
+//  data is added to nodes it's available to query later with
+//  GraphQL
+const { createFilePath } = require(`gatsby-source-filesystem`);
+
+exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
+  const { createNodeField } = boundActionCreators
+  if (node.internal.type === `MarkdownRemark`) {
+    const slug = createFilePath({ node, getNode, basePath: `pages` })
+  // createNodeField function allows us to create additional fields on 
+  //  nodes created by other plugins  
+    createNodeField({
+      node,
+      name: `slug`,
+      value: slug,
+    })
+  }
 };
+
+//Only the original creator of a node can directly modify the node—all other plugins (including our gatsby-node.js) must use this function to create additional fields.
+
