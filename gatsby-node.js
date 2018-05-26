@@ -53,3 +53,29 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
 
 //Only the original creator of a node can directly modify the node—all other plugins (including our gatsby-node.js) must use this function to create additional fields.
 
+
+// telling Gatsby about our pages below (their paths, template component etc)
+// using this graphql function to query for the Markdown slugs we just created and then logging result of the query
+
+exports.createPages = ({ graphql, boundActionCreators }) => {
+  return new Promise((resolve, reject) => {
+    graphql(`
+      {
+        allMarkdownRemark {
+          edges {
+            node {
+              fields {
+                slug
+              }
+            }
+          }
+        }
+      }
+    `
+).then(result => {
+      console.log(JSON.stringify(result, null, 4))
+      resolve()
+    })
+  })
+};
+
